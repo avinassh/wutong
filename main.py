@@ -53,7 +53,7 @@ def post_image_to_tg(image_url, caption=''):
 
 
 def post_stuff_from_reddit(subreddit_name='gentlemanboners'):
-    for submission in reddit_client.subreddit(subreddit_name).new():
+    for submission in reddit_client.subreddit(subreddit_name).hot():
         if not submission.post_hint == 'image':
             continue
         thread_id = submission.id
