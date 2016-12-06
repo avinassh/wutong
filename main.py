@@ -1,6 +1,8 @@
+import time
+
 import telegram
 import praw
-from peewee import SqliteDatabase, Model, CharField, IntegrityError
+from peewee import SqliteDatabase, Model, CharField
 
 from settings import (TELEGRAM_ACCESS_TOKEN, TELEGRAM_CHANNEL_ID,
                       REDDIT_APP_KEY, REDDIT_APP_SECRET, REDDIT_USER_AGENT)
@@ -14,6 +16,8 @@ db = SqliteDatabase('wutong.db')
 
 class FetchedThreads(Model):
     thread_id = CharField(unique=True)
+    title = CharField()
+    url = CharField()
 
     class Meta:
         database = db
@@ -29,8 +33,13 @@ def deinit():
     db.close()
 
 
-def mark_thread_posted(thread_id):
-    FetchedThreads.create(thread_id=thread_id)
+def mark_thread_posted(thread_id, title, url):
+    thread = {
+        'thread_id': thread_id,
+        'title': title,
+        'url': url
+    }
+    FetchedThreads.create(**thread)
 
 
 def is_thread_posted(thread_id):
@@ -43,15 +52,17 @@ def post_image_to_tg(image_url, caption=''):
                    caption=caption[:200])
 
 
-def post_stuff_from_reddit(subreddit='gentlemanboners'):
-    for submission in reddit_client.subreddit(subreddit).new():
+def post_stuff_from_reddit(subreddit_name='gentlemanboners'):
+    for submission in reddit_client.subreddit(subreddit_name).new():
         if not submission.post_hint == 'image':
             continue
         thread_id = submission.id
+        image_url = submission.url
+        caption = submission.title
         if is_thread_posted(thread_id=thread_id):
             break
-        post_image_to_tg(image_url=submission.url, caption=submission.title)
-        mark_thread_posted(thread_id=thread_id)
+        post_image_to_tg(image_url=image_url, caption=caption)
+        mark_thread_posted(thread_id=thread_id, url=image_url, title=caption)
 
 
 def main():
