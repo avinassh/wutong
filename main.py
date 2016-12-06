@@ -63,13 +63,19 @@ def post_stuff_from_reddit(subreddit_name='gentlemanboners'):
             break
         post_image_to_tg(image_url=image_url, caption=caption)
         mark_thread_posted(thread_id=thread_id, url=image_url, title=caption)
+        # sleep for 1 seconds
+        # let me be nice to Telegram ^_^
+        time.sleep(1)
 
 
 def main():
-    pass
+    while True:
+        post_stuff_from_reddit()
+        # sleep for five minutes
+        time.sleep(60 * 5)
 
 
 if __name__ == '__main__':
     initialize_db()
-    post_stuff_from_reddit()
+    main()
     deinit()
