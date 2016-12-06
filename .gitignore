@@ -49,3 +49,7 @@ wutong.db
 
 # direnv
 .envrc
+
+# logs
+logs/*
+!logs/.keep
