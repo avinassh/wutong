@@ -1,0 +1,10 @@
+Intead of supervisor, if you wish to use cron, then do following:
+
+1. Add the cron job
+    
+    $ crontab -e
+    0 */2 * * * cd /opt/wutong/ && /opt/wutongvenv/bin/python3 main.py >> /opt/wutong/stdout.log 2>&1
+
+2. Confirm it is added:
+
+    $ crontab -l
