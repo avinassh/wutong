@@ -60,7 +60,7 @@ def post_stuff_from_reddit(subreddit_name='gentlemanboners'):
         image_url = submission.url
         caption = submission.title
         if is_thread_posted(thread_id=thread_id):
-            break
+            continue
         post_image_to_tg(image_url=image_url, caption=caption)
         mark_thread_posted(thread_id=thread_id, url=image_url, title=caption)
         # sleep for 1 seconds
