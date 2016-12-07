@@ -68,14 +68,7 @@ def post_stuff_from_reddit(subreddit_name='gentlemanboners'):
         time.sleep(1)
 
 
-def main():
-    while True:
-        post_stuff_from_reddit()
-        # sleep for five minutes
-        time.sleep(60 * 5)
-
-
 if __name__ == '__main__':
     initialize_db()
-    main()
+    post_stuff_from_reddit()
     deinit()
