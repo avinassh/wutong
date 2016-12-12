@@ -1,6 +1,5 @@
-TELEGRAM_ACCESS_TOKEN = ''
-TELEGRAM_CHANNEL_ID = '@gentlemanboners'
-REDDIT_APP_KEY = ''
-REDDIT_APP_SECRET = ''
-REDDIT_USER_AGENT = ('Wutong Bot, v0.1. Read only bot to read posts from'
-                     '/r/gentlemanboners (by /u/avinassh)')
+TELEGRAM_ACCESS_TOKEN = 'Telegram bot API key goes here'
+TELEGRAM_CHANNEL_ID = 'The channel or group ID where you want to upload images'
+REDDIT_APP_KEY = 'Reddit App Key'
+REDDIT_APP_SECRET = 'Reddit App Secret'
+REDDIT_USER_AGENT = 'Reddit App User Agent'
